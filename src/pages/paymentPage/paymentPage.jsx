@@ -4,7 +4,7 @@ function PaymentPage() {
   const handlePayment = () => {
     try {
       // Check if Android interface exists
-      if (window.Android && typeof window.Android.doPayment === "function") {
+      if (window.Android && typeof window.Android.DoPayment === "function") {
         window.Android.DoPayment();
       } else {
         console.warn("Android payment interface is not available");
