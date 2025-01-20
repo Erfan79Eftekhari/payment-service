@@ -1,0 +1,269 @@
+/* استایل کلی دکمه‌ها */
+* {
+  --black: rgba(0, 0, 0, 1);
+  --blacka-24: rgba(0, 0, 0, 0.24);
+  --blacka-32: rgba(0, 0, 0, 0.32);
+  --blacka-56: rgba(0, 0, 0, 0.56);
+  --blacka-87: rgba(0, 0, 0, 0.87);
+  --lightprimarya-12: rgba(255, 148, 26, 0.12);
+  --lightprimarya-16: rgba(255, 148, 26, 0.16);
+  --lightprimarya-24: rgba(255, 148, 26, 0.24);
+  --lightprimarya-32: rgba(255, 148, 26, 0.32);
+  --lightprimarya-4: rgba(236, 19, 95, 0.04);
+  --lightprimarya-56: rgba(255, 148, 26, 0.56);
+  --lightprimarya-8: rgba(255, 148, 26, 0.08);
+  --lightprimarydark: rgba(204, 109, 0, 1);
+  --lightprimarylight: rgba(255, 172, 77, 1);
+  --lightprimaryorigin: rgba(255, 136, 0, 1);
+  --lightsecondarya-12: rgba(19, 55, 236, 0.12);
+  --lightsecondarya-16: rgba(19, 55, 236, 0.16);
+  --lightsecondarya-24: rgba(19, 55, 236, 0.24);
+  --lightsecondarya-32: rgba(19, 55, 236, 0.32);
+  --lightsecondarya-4: rgba(19, 55, 236, 0.04);
+  --lightsecondarya-56: rgba(19, 55, 236, 0.56);
+  --lightsecondarya-8: rgba(19, 55, 236, 0.08);
+  --lightsecondarydark: rgba(17, 46, 192, 1);
+  --lightsecondarylight: rgba(109, 130, 238, 1);
+  --lightsecondaryorigin: rgba(19, 55, 236, 1);
+  --lightsemanticerrora-12: rgba(236, 19, 19, 0.12);
+  --lightsemanticerrora-24: rgba(236, 19, 19, 0.24);
+  --lightsemanticerrora-8: rgba(236, 19, 19, 0.08);
+  --lightsemanticerrordark: rgba(192, 17, 17, 1);
+  --lightsemanticerrorlight: rgba(238, 63, 63, 1);
+  --lightsemanticerrororigin: rgba(236, 19, 19, 1);
+  --lightsemanticinfoa-12: rgba(17, 111, 192, 0.12);
+  --lightsemanticinfoa-24: rgba(17, 111, 192, 0.24);
+  --lightsemanticinfoa-8: rgba(17, 111, 192, 0.08);
+  --lightsemanticinfodark: rgba(17, 86, 146, 1);
+  --lightsemanticinfolight: rgba(19, 135, 236, 1);
+  --lightsemanticinfoorigin: rgba(17, 111, 192, 1);
+  --lightsemanticsuccessa-12: rgba(17, 146, 41, 0.12);
+  --lightsemanticsuccessa-24: rgba(17, 146, 41, 0.24);
+  --lightsemanticsuccessa-8: rgba(17, 146, 41, 0.08);
+  --lightsemanticsuccessdark: rgba(16, 101, 32, 1);
+  --lightsemanticsuccesslight: rgba(17, 192, 49, 1);
+  --lightsemanticsuccessorigin: rgba(17, 146, 41, 1);
+  --lightsemanticwarninga-12: rgba(236, 106, 19, 0.12);
+  --lightsemanticwarninga-24: rgba(236, 106, 19, 0.24);
+  --lightsemanticwarninga-8: rgba(236, 106, 19, 0.08);
+  --lightsemanticwarningdark: rgba(192, 87, 17, 1);
+  --lightsemanticwarninglight: rgba(238, 133, 63, 1);
+  --lightsemanticwarningorigin: rgba(236, 106, 19, 1);
+  --lightsurfacelevel-0: rgba(255, 255, 255, 1);
+  --lightsurfacelevel-1: rgba(250, 250, 250, 1);
+  --lightsurfacelevel-2: rgba(235, 235, 235, 1);
+  --transparent: rgba(255, 255, 255, 0);
+  --white: rgba(255, 255, 255, 1);
+  --whitea-10: rgba(255, 255, 255, 0.1);
+  --button-elevation-default-large-hover: 0px 2px 6px -1px rgba(0, 0, 0, 0.24),
+    0px 4px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 12px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-default-large-normal: 0px 8px 12px -6px rgba(0, 0, 0, 0.16),
+    0px 12px 16px 0px rgba(0, 0, 0, 0.12), 0px 1px 32px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-default-medium-hover: 0px 2px 4px -1px rgba(0, 0, 0, 0.24),
+    0px 4px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 12px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-default-medium-normal: 0px 8px 12px -6px rgba(0, 0, 0, 0.16),
+    0px 12px 16px 0px rgba(0, 0, 0, 0.12), 0px 1px 32px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-default-small-hover: 0px 2px 4px -1px rgba(0, 0, 0, 0.24),
+    0px 4px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 12px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-default-small-normal: 0px 8px 12px -6px rgba(0, 0, 0, 0.16),
+    0px 12px 16px 0px rgba(0, 0, 0, 0.12), 0px 1px 32px 0px rgba(0, 0, 0, 0.08);
+  --button-elevation-primary-large-hover: 0px 0px 6px -2px --lightprimarya-56,
+    0px 4px 16px 0px --lightprimarya-16, 0px 2px 10px 0px --lightprimarya-12;
+  --button-elevation-primary-large-normal: 0px 14px 20px -12px --lightprimarya-32,
+    0px 16px 24px 2px --lightprimarya-16, 0px 12px 30px -8px --lightprimarya-12;
+  --button-elevation-primary-medium-hover: 0px 0px 4px -2px --lightprimarya-56,
+    0px 4px 8px 0px --lightprimarya-16, 0px 0px 8px 2px --lightprimarya-12;
+  --button-elevation-primary-medium-normal: 0px 8px 9px -4px --lightprimarya-24,
+    0px 14px 16px 2px --lightprimarya-16, 0px 5px 20px 4px --lightprimarya-12;
+  --button-elevation-primary-small-hover: 0px 0px 4px -2px --lightprimarya-56,
+    0px 4px 8px 0px --lightprimarya-16, 0px 0px 8px 2px --lightprimarya-12;
+  --button-elevation-primary-small-normal: 0px 8px 9px -4px --lightprimarya-32,
+    0px 14px 16px 2px --lightprimarya-16, 0px 5px 20px 4px --lightprimarya-12;
+  --button-elevation-secondary-large-hover: 0px 0px 6px -2px rgba(19, 55, 236, 0.56),
+    0px 4px 16px 0px rgba(19, 55, 236, 0.16),
+    0px 2px 10px 0px rgba(19, 55, 236, 0.12);
+  --button-elevation-secondary-large-normal: 0px 14px 20px -12px rgba(19, 55, 236, 0.32),
+    0px 16px 24px 2px rgba(19, 55, 236, 0.16),
+    0px 12px 30px -8px rgba(19, 55, 236, 0.12);
+  --button-elevation-secondary-medium-hover: 0px 0px 4px -2px rgba(19, 55, 236, 0.56),
+    0px 4px 8px 0px rgba(19, 55, 236, 0.16),
+    0px 0px 8px 2px rgba(19, 55, 236, 0.12);
+  --button-elevation-secondary-medium-normal: 0px 8px 9px -4px rgba(19, 55, 236, 0.32),
+    0px 14px 16px 2px rgba(19, 55, 236, 0.16),
+    0px 5px 20px 4px rgba(19, 55, 236, 0.12);
+  --button-elevation-secondary-small-hover: 0px 0px 4px -2px rgba(19, 55, 236, 0.56),
+    0px 4px 8px 0px rgba(19, 55, 236, 0.16),
+    0px 0px 8px 2px rgba(19, 55, 236, 0.12);
+  --button-elevation-secondary-small-normal: 0px 8px 9px -4px rgba(19, 55, 236, 0.32),
+    0px 14px 16px 2px rgba(19, 55, 236, 0.16),
+    0px 5px 20px 4px rgba(19, 55, 236, 0.12);
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+.button__icon {
+  margin-right: 8px; /* فاصله بین آیکون و متن */
+}
+
+/* استایل‌های مختلف برای اندازه‌ها */
+.button--small {
+  padding: 8px 16px;
+  font-size: 14px;
+  min-height: 24px;
+}
+
+.button--medium {
+  padding: 12px 24px;
+  font-size: 16px;
+  min-height: 32px;
+}
+
+.button--large {
+  padding: 16px 32px;
+  font-size: 18px;
+  min-height: 40px;
+}
+
+/* استایل‌های مختلف برای رنگ‌ها */
+.button--orange {
+  background-color: var(--lightprimaryorigin);
+  color: var(--white);
+}
+
+.button--blue {
+  background-color: var(--lightsecondaryorigin);
+  color: white;
+}
+
+.button--gray {
+  background-color: var(--gray-color, #9e9e9e);
+  color: white;
+}
+
+/* استایل‌های مختلف برای انواع دکمه‌ها */
+.button--primary {
+  background-color: var(--lightprimaryorigin);
+  color: white;
+}
+
+.button--secondary {
+  background-color: var(--lightsecondaryorigin);
+  color: white;
+}
+
+.button--outline {
+  background-color: transparent;
+  border: 2px solid var(--lightprimaryorigin);
+  color: var(--lightprimaryorigin);
+}
+.button--outline:hover {
+  background-color: var(--lightprimaryorigin);
+  color: var(--white);
+}
+
+/* حالت‌های غیرفعال */
+.button--disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button:hover:not(.button--disabled) {
+  opacity: 0.8;
+}
+
+/* استایل‌های سایه برای دکمه‌ها */
+.button--elevation-primary-small-normal {
+  box-shadow: var(--button-elevation-primary-small-normal);
+}
+
+.button--elevation-primary-medium-normal {
+  box-shadow: var(--button-elevation-primary-medium-normal);
+}
+
+.button--elevation-primary-large-normal {
+  box-shadow: var(--button-elevation-primary-large-normal);
+}
+
+.button--elevation-secondary-small-normal {
+  box-shadow: var(--button-elevation-secondary-small-normal);
+}
+
+.button--elevation-secondary-medium-normal {
+  box-shadow: var(--button-elevation-secondary-medium-normal);
+}
+
+.button--elevation-secondary-large-normal {
+  box-shadow: var(--button-elevation-secondary-large-normal);
+}
+
+.button--elevation-default-small-normal {
+  box-shadow: var(--button-elevation-default-small-normal);
+}
+
+.button--elevation-default-medium-normal {
+  box-shadow: var(--button-elevation-default-medium-normal);
+}
+
+.button--elevation-default-large-normal {
+  box-shadow: var(--button-elevation-default-large-normal);
+}
+
+/* حالت hover */
+.button--elevation-primary-small-hover {
+  box-shadow: var(--button-elevation-primary-small-hover);
+}
+
+.button--elevation-primary-medium-hover {
+  box-shadow: var(--button-elevation-primary-medium-hover);
+}
+
+.button--elevation-primary-large-hover {
+  box-shadow: var(--button-elevation-primary-large-hover);
+}
+
+.button--elevation-secondary-small-hover {
+  box-shadow: var(--button-elevation-secondary-small-hover);
+}
+
+.button--elevation-secondary-medium-hover {
+  box-shadow: var(--button-elevation-secondary-medium-hover);
+}
+
+.button--elevation-secondary-large-hover {
+  box-shadow: var(--button-elevation-secondary-large-hover);
+}
+
+.button--elevation-default-small-hover {
+  box-shadow: var(--button-elevation-default-small-hover);
+}
+
+.button--elevation-default-medium-hover {
+  box-shadow: var(--button-elevation-default-medium-hover);
+}
+
+.button--elevation-default-large-hover {
+  box-shadow: var(--button-elevation-default-large-hover);
+}
+
+/* استایل دکمه در حالت انتخاب‌شده */
+.button--active {
+  opacity: 1;
+}
+
+/* استایل آیکون */
+.button__icon {
+  display: inline-block;
+  margin-right: 8px; /* فاصله بین آیکون و متن */
+  font-size: 18px;
+}

@@ -1,0 +1,22 @@
+.pagecontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3.2rem;
+  background-color: white;
+}
+.image404 {
+  max-width: 48rem;
+  max-height: 40rem;
+}
+.message {
+  color: var(--lightprimaryorigin);
+  margin-top: 4rem;
+}
+.container {
+  /* 1140px */
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
