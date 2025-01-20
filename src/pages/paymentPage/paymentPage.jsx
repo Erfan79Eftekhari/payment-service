@@ -3,12 +3,7 @@ import React from "react";
 function PaymentPage() {
   const handlePayment = () => {
     try {
-      // Check if Android interface exists
-      if (window.Android && typeof window.Android.DoPayment === "function") {
-        window.Android.DoPayment();
-      } else {
-        console.warn("Android payment interface is not available");
-      }
+      window.Android.DoPayment(3000);
     } catch (error) {
       console.error("Error calling Android payment function:", error);
     }
