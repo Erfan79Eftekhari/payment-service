@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PaymentPage() {
   const [helloResult, setHelloResult] = useState(null);
-
+  const navigate = useNavigate();
   const handlePayment = () => {
-    try {
-      window.Android.DoPayment(3000);
-    } catch (error) {
-      console.error("Error calling Android payment function:", error);
-    }
+    // try {
+    //   window.Android.DoPayment(3000);
+    // } catch (error) {
+    //   console.error("Error calling Android payment function:", error);
+    // }
+    navigate("/prePayment");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleHello = () => {
@@ -20,7 +26,6 @@ function PaymentPage() {
       console.error("Error calling Android Hello function:", error);
     }
   };
-
   return (
     <div
       style={{
