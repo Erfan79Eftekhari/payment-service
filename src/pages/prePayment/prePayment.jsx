@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./PrePayment.module.css";
+import styles from "./prePayment.module.css";
 
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
