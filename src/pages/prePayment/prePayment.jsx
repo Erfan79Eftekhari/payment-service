@@ -4,6 +4,7 @@ import styles from "./prePayment.module.css";
 
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
+  const [cardData, setCardData] = useState(null);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -11,8 +12,8 @@ const PrePayment = () => {
   };
 
   const handleBack = () => {
-    const result = window.Android.CancelPayment();
-    navigate(-1); // برگشت به صفحه قبلی
+    // const result = window.Android.CancelPayment();
+    navigate(-1);
   };
 
   const handlePayment = () => {
@@ -20,19 +21,15 @@ const PrePayment = () => {
     console.log("پرداخت با مقدار:", saveValue);
 
     try {
-      // Get the JSON string response from Android
       let jsonResponse = window.Android.DoPayment(saveValue);
-
-      // Parse the JSON string to an object
       let response = JSON.parse(jsonResponse);
-
-      // Now you can use the response object
+      setCardData(response);
       console.log("Payment Response:", response);
     } catch (error) {
       console.error("Error in payment process:", error);
-      // Handle errors appropriately
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -59,6 +56,22 @@ const PrePayment = () => {
             پرداخت
           </button>
         </div>
+
+        {cardData && (
+          <div className={styles.responseContainer}>
+            <h3>اطلاعات تراکنش:</h3>
+            <p>شماره کارت: {cardData.CardNumber}</p>
+            <p>مبلغ: {cardData.Amount}</p>
+            <p>شماره پیگیری: {cardData.TraceNumber}</p>
+            <p>تاریخ و زمان: {cardData.DateAndTime}</p>
+            <p>وضعیت: {cardData.ResponseFa}</p>
+            {cardData.ResponseCode === 0 ? (
+              <div className={styles.successMessage}>تراکنش موفق</div>
+            ) : (
+              <div className={styles.errorMessage}>تراکنش ناموفق</div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

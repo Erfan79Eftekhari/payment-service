@@ -50,7 +50,7 @@ function PaymentPage() {
             cursor: "pointer",
           }}
         >
-          Make Payment
+          بریم برای پرداخت
         </button>
         <button
           onClick={handleHello}
@@ -64,7 +64,7 @@ function PaymentPage() {
             cursor: "pointer",
           }}
         >
-          Say Hello
+          سلام کن
         </button>
       </div>
 
