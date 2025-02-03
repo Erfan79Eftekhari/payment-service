@@ -12,16 +12,16 @@ const PrePayment = () => {
   };
 
   const handleBack = () => {
-    // const result = window.Android.CancelPayment();
+    window.Android.CancelOperation();
     navigate(-1);
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     let saveValue = Number(inputValue);
     console.log("پرداخت با مقدار:", saveValue);
 
     try {
-      let jsonResponse = window.Android.DoPayment(saveValue);
+      let jsonResponse = await window.Android.DoPayment(saveValue);
       let response = JSON.parse(jsonResponse);
       setCardData(response);
       console.log("Payment Response:", response);
