@@ -11,7 +11,7 @@ const PrePayment = () => {
     setInputValue(e.target.value);
   };
 
-  const handleBack = () => {
+  const handleBack = async () => {
     window.Android.CancelOperation();
     navigate(-1);
   };
