@@ -31,7 +31,7 @@ const PrePayment = () => {
   // Function to go back to the previous page
   const handleBack = async () => {
     window.Android.CancelOperation();
-    navigate(-1);
+    // navigate(-1);
   };
 
   // Function to start the payment process
