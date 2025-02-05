@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./prePayment.module.css";
 
@@ -7,28 +7,54 @@ const PrePayment = () => {
   const [cardData, setCardData] = useState(null);
   const navigate = useNavigate();
 
+  // تابع برای مدیریت تغییرات ورودی
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
+  // تابع برای برگشت به صفحه قبلی
   const handleBack = async () => {
     window.Android.CancelOperation();
     navigate(-1);
   };
 
+  // تابع برای شروع پرداخت
   const handlePayment = async () => {
     let saveValue = Number(inputValue);
     console.log("پرداخت با مقدار:", saveValue);
 
     try {
-      let jsonResponse = await window.Android.DoPayment(saveValue);
-      let response = JSON.parse(jsonResponse);
-      setCardData(response);
-      console.log("Payment Response:", response);
+      // فراخوانی متد پرداخت
+      await window.Android.DoPayment(saveValue);
     } catch (error) {
       console.error("Error in payment process:", error);
     }
   };
+
+  // تابع برای هندل کردن نتیجه پرداخت (این تابع توسط WebView فراخوانی می‌شود)
+  const onPaymentResult = (result) => {
+    try {
+      // تبدیل JSON به شیء جاوااسکریپت
+      const parsedResult = JSON.parse(result);
+
+      // ذخیره اطلاعات پرداخت در state
+      setCardData(parsedResult);
+
+      console.log("Payment Result:", parsedResult);
+    } catch (error) {
+      console.error("Failed to parse payment result:", error);
+    }
+  };
+
+  // اضافه کردن تابع onPaymentResult به window برای دسترسی WebView
+  useEffect(() => {
+    window.onPaymentResult = onPaymentResult;
+
+    // پاکسازی تابع از window هنگام خروج از کامپوننت
+    return () => {
+      delete window.onPaymentResult;
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
