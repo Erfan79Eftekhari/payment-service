@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import styles from "./print.module.css";
@@ -37,14 +37,14 @@ const Print = () => {
       );
       const buyerResponse = JSON.parse(buyerResult);
       setBuyerPrintStatus(buyerResponse.isPrinted);
-
+      console.log("buyersResponse:");
+      console.log(buyerResponse.isPrinted);
       if (!buyerResponse.isPrinted) {
         setPrintMessage(buyerResponse.Message || "خطا در چاپ نسخه خریدار");
         buyersReceipt.classList.add(styles.displaynone);
         setIsPrinting(false);
         return;
       }
-
       // چاپ نسخه فروشنده
       buyersReceipt.classList.add(styles.displaynone);
       let sellersReceipt = document.querySelector(`.${styles.sellersReceipt}`);
@@ -62,7 +62,8 @@ const Print = () => {
       setSellerPrintStatus(sellerResponse.isPrinted);
 
       sellersReceipt.classList.add(styles.displaynone);
-
+      console.log("sellersResponse:");
+      console.log(sellerResponse.isPrinted);
       if (sellerResponse.isPrinted) {
         setPrintMessage("چاپ هر دو نسخه با موفقیت انجام شد");
       } else {
