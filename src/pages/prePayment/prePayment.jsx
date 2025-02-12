@@ -7,47 +7,41 @@ const PrePayment = () => {
   const [cardData, setCardData] = useState(null);
   const navigate = useNavigate();
 
-  // Attach onPaymentResult to the window immediately
   window.onPaymentResult = (result) => {
     try {
-      // Convert JSON to JavaScript object
       const parsedResult = JSON.parse(result);
-
-      // Debug log to confirm the function is being called
       console.log("Payment Result Received:", parsedResult);
-
-      // Perform any necessary updates to the state
       setCardData(parsedResult);
     } catch (error) {
       console.error("Failed to parse payment result:", error);
     }
   };
 
-  // Function to handle input changes
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  // Function to go back to the previous page
   const handleBack = async () => {
     window.Android.CancelOperation();
     // navigate(-1);
   };
 
-  // Function to start the payment process
   const handlePayment = async () => {
     let saveValue = Number(inputValue);
     console.log("پرداخت با مقدار:", saveValue);
 
     try {
-      // Call the payment method
       await window.Android.DoPayment(saveValue);
     } catch (error) {
       console.error("Error in payment process:", error);
     }
   };
 
-  // Clean up the function when the component unmounts
+  // اضافه کردن تابع برای هدایت به صفحه پرینت
+  const handleNavigateToPrint = () => {
+    navigate("/print", { state: { cardData } }); // انتقال اطلاعات تراکنش به صفحه پرینت
+  };
+
   useEffect(() => {
     return () => {
       delete window.onPaymentResult;
@@ -90,7 +84,15 @@ const PrePayment = () => {
             <p>تاریخ و زمان: {cardData.DateAndTime}</p>
             <p>وضعیت: {cardData.ResponseFa}</p>
             {cardData.ResponseCode === 0 ? (
-              <div className={styles.successMessage}>تراکنش موفق</div>
+              <>
+                <div className={styles.successMessage}>تراکنش موفق</div>
+                <button
+                  onClick={handleNavigateToPrint}
+                  className={`${styles.button} ${styles.printButton}`}
+                >
+                  چاپ رسید
+                </button>
+              </>
             ) : (
               <div className={styles.errorMessage}>تراکنش ناموفق</div>
             )}

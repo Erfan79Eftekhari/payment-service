@@ -1,0 +1,92 @@
+/* Print.module.css */
+.container {
+  padding: 20px;
+  direction: rtl;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.backButton,
+.printButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.backButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.printButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.displaynone {
+  display: none;
+}
+
+.buyersReceipt,
+.sellersReceipt {
+  width: 80mm;
+  margin: 0 auto;
+  padding: 10px;
+  background: white;
+  font-family: "IRANSans", Arial, sans-serif;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: right;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+@media print {
+  .buttonContainer {
+    display: none;
+  }
+}
