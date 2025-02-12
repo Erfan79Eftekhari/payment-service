@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
-import styles from "./Print.module.css";
+import styles from "./print.module.css";
 
 const Print = () => {
   const location = useLocation();
