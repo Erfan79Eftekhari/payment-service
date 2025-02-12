@@ -37,14 +37,17 @@ const Print = () => {
       );
       const buyerResponse = JSON.parse(buyerResult);
       setBuyerPrintStatus(buyerResponse.isPrinted);
-      console.log("buyersResponse:");
-      console.log(buyerResponse.isPrinted);
+      console.log("buyersResponse:", buyerResponse.isPrinted);
+
       if (!buyerResponse.isPrinted) {
         setPrintMessage(buyerResponse.Message || "خطا در چاپ نسخه خریدار");
         buyersReceipt.classList.add(styles.displaynone);
         setIsPrinting(false);
         return;
       }
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // چاپ نسخه فروشنده
       buyersReceipt.classList.add(styles.displaynone);
       let sellersReceipt = document.querySelector(`.${styles.sellersReceipt}`);
@@ -62,8 +65,8 @@ const Print = () => {
       setSellerPrintStatus(sellerResponse.isPrinted);
 
       sellersReceipt.classList.add(styles.displaynone);
-      console.log("sellersResponse:");
-      console.log(sellerResponse.isPrinted);
+      console.log("sellersResponse:", sellerResponse.isPrinted);
+
       if (sellerResponse.isPrinted) {
         setPrintMessage("چاپ هر دو نسخه با موفقیت انجام شد");
       } else {
