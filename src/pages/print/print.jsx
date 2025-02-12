@@ -1,4 +1,3 @@
-// Print.js
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
@@ -7,23 +6,28 @@ import styles from "./print.module.css";
 const Print = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { cardData } = location.state || {};
   const [printMessage, setPrintMessage] = useState("");
   const [isPrinting, setIsPrinting] = useState(false);
+
+  // اطلاعات رو از location.state دریافت می‌کنیم
+  const cardData = location.state?.cardData || {
+    DateAndTime: "",
+    TraceNumber: "",
+    CardNumber: "",
+    Amount: "",
+  };
 
   const handlePrint = async () => {
     setIsPrinting(true);
     setPrintMessage("");
 
     try {
-      // چاپ نسخه خریدار
       let buyersReceipt = document.querySelector(`.${styles.buyersReceipt}`);
       buyersReceipt.classList.remove(styles.displaynone);
 
       const buyerCanvas = await html2canvas(buyersReceipt, { scale: 2 });
       const buyerBase64Image = buyerCanvas.toDataURL("image/png").split(",")[1];
 
-      // ارسال تصویر اول و دریافت نتیجه
       const buyerResult = await window.Android.SaveReceiptWithVerification(
         buyerBase64Image
       );
@@ -36,7 +40,6 @@ const Print = () => {
         return;
       }
 
-      // اگر چاپ اول موفق بود، چاپ نسخه فروشنده
       buyersReceipt.classList.add(styles.displaynone);
       let sellersReceipt = document.querySelector(`.${styles.sellersReceipt}`);
       sellersReceipt.classList.remove(styles.displaynone);
@@ -46,7 +49,6 @@ const Print = () => {
         .toDataURL("image/png")
         .split(",")[1];
 
-      // ارسال تصویر دوم و دریافت نتیجه
       const sellerResult = await window.Android.SaveReceiptWithVerification(
         sellerBase64Image
       );
@@ -70,6 +72,7 @@ const Print = () => {
   const handleBack = () => {
     navigate("/");
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
@@ -98,16 +101,17 @@ const Print = () => {
           {printMessage}
         </div>
       )}
+
       <div className={`${styles.buyersReceipt} ${styles.displaynone}`}>
         <h2>نسخه خریدار</h2>
         <h1>رسید پرداخت</h1>
         <div className={styles.details}>
           <div className={styles.left}>
-            <p>{cardData?.DateAndTime}</p>
+            <p>{cardData.DateAndTime}</p>
           </div>
           <div className={styles.right}>
-            <p>شماره پیگیری: {cardData?.TraceNumber}</p>
-            <p>شماره کارت: {cardData?.CardNumber}</p>
+            <p>شماره پیگیری: {cardData.TraceNumber}</p>
+            <p>شماره کارت: {cardData.CardNumber}</p>
           </div>
         </div>
         <table className={styles.table}>
@@ -120,19 +124,21 @@ const Print = () => {
           <tbody>
             <tr>
               <td>پرداخت</td>
-              <td>{cardData?.Amount}</td>
+              <td>{cardData.Amount}</td>
             </tr>
           </tbody>
         </table>
         <div className={styles.total}>
           <p>جمع کل</p>
-          <p>{cardData?.Amount} ریال</p>
+          <p>{cardData.Amount} ریال</p>
         </div>
         <p className={styles.footer}>با تشکر از پرداخت شما</p>
       </div>
 
       <div className={`${styles.sellersReceipt} ${styles.displaynone}`}>
         {/* محتوای مشابه با نسخه خریدار */}
+        <h2>نسخه فروشنده</h2>
+        {/* ... بقیه محتوا مشابه نسخه خریدار ... */}
       </div>
     </div>
   );
