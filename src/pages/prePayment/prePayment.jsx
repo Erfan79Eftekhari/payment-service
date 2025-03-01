@@ -83,7 +83,7 @@ const PrePayment = () => {
             <p>شماره پیگیری: {cardData.TraceNumber}</p>
             <p>تاریخ و زمان: {cardData.DateAndTime}</p>
             <p>وضعیت: {cardData.ResponseFa}</p>
-            {cardData.ResponseCode === 0 ? (
+            {cardData.ResponseCode === 0 || cardData.ResponseCode === 100 ? (
               <>
                 <div className={styles.successMessage}>تراکنش موفق</div>
                 <button
