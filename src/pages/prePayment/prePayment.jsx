@@ -22,8 +22,8 @@ const PrePayment = () => {
         window.Android &&
         typeof window.Android.onRecieveAckNak === "function"
       ) {
-        console.log("i send ack");
-        window.Android.onRecieveAckNak(true);
+        console.log("i send nak");
+        window.Android.onRecieveAckNak(false);
       } else {
         console.warn(
           "Android interface or onRecieveAckNak method not available"
