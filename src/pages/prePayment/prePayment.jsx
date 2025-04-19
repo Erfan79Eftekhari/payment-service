@@ -16,7 +16,21 @@ const PrePayment = () => {
       console.error("Failed to parse payment result:", error);
     }
   };
-
+  window.OnRequestAck = () => {
+    setTimeout(() => {
+      if (
+        window.Android &&
+        typeof window.Android.onRecieveAckNak === "function"
+      ) {
+        console.log("i send ack");
+        window.Android.onRecieveAckNak(true);
+      } else {
+        console.warn(
+          "Android interface or onRecieveAckNak method not available"
+        );
+      }
+    }, 2000); // simulate async work
+  };
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
