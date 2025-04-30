@@ -31,6 +31,17 @@ const PrePayment = () => {
       }
     }, 2000); // simulate async work
   };
+  window.onScanResult = (success, barcode) => {
+    try {
+      if (success) {
+        console.log("Barcode Recieved:", barcode);
+      } else {
+        console.log("Something went wrong: ", barcode);
+      }
+    } catch (error) {
+      console.error("Failed to get scan resualt ", error);
+    }
+  };
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
