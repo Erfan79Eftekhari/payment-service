@@ -5,7 +5,7 @@ import styles from "./prePayment.module.css";
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
   const [cardData, setCardData] = useState(null);
-  const [scanResult, setScanResult] = useState("");
+  const [scanResult, setScanResult] = useState(null); // مقدار اولیه null
   const navigate = useNavigate();
 
   window.onPaymentResult = (result) => {
@@ -17,6 +17,7 @@ const PrePayment = () => {
       console.error("Failed to parse payment result:", error);
     }
   };
+
   window.OnRequestAck = () => {
     setTimeout(() => {
       if (
@@ -32,18 +33,19 @@ const PrePayment = () => {
       }
     }, 2000); // simulate async work
   };
+
   window.onScanResult = (success, barcode) => {
     try {
       if (success) {
         console.log("Barcode Recieved:", barcode);
-        setScanResult(barcode || "");
+        setScanResult(barcode || ""); // اگر barcode خالی بود، مقدار "" بگذار
       } else {
         console.log("Something went wrong: ", barcode);
-        setScanResult(barcode);
+        setScanResult(""); // اگر موفق نبود، مقدار را خالی کن
       }
     } catch (error) {
       console.error("Failed to get scan resualt ", error);
-      setScanResult("");
+      setScanResult(""); // در صورت ارور هم مقدار را خالی کن
     }
   };
 
@@ -55,7 +57,9 @@ const PrePayment = () => {
     window.Android.CancelOperation();
     // navigate(-1);
   };
+
   const handleScan = async () => {
+    setScanResult(null); // پاک کردن مقدار قبلی قبل از اسکن جدید
     try {
       if (window.Android && typeof window.Android.DoScanHID === "function") {
         await window.Android.DoScanHID(5000);
@@ -66,6 +70,7 @@ const PrePayment = () => {
       console.error("Error in scan process:", error);
     }
   };
+
   const handlePayment = async () => {
     let saveValue = Number(inputValue);
     console.log("پرداخت با مقدار:", saveValue);
@@ -89,37 +94,39 @@ const PrePayment = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="مقدار را وارد کنید"
-          className={styles.input}
-        />
+    <>
+      <div className={styles.container}>
+        <div className={styles.formContainer}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="مقدار را وارد کنید"
+            className={styles.input}
+          />
 
-        <div className={styles.buttonContainer}>
-          <button
-            onClick={handleBack}
-            className={`${styles.button} ${styles.backButton}`}
-          >
-            برگشت
-          </button>
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={handleBack}
+              className={`${styles.button} ${styles.backButton}`}
+            >
+              برگشت
+            </button>
 
-          <button
-            onClick={handlePayment}
-            className={`${styles.button} ${styles.payButton}`}
-          >
-            پرداخت
-          </button>
+            <button
+              onClick={handlePayment}
+              className={`${styles.button} ${styles.payButton}`}
+            >
+              پرداخت
+            </button>
 
-          <button
-            onClick={handleScan}
-            className={`${styles.button} ${styles.scanButton}`}
-          >
-            اسکن بارکد
-          </button>
+            <button
+              onClick={handleScan}
+              className={`${styles.button} ${styles.scanButton}`}
+            >
+              اسکن بارکد
+            </button>
+          </div>
         </div>
 
         {cardData && (
@@ -146,14 +153,18 @@ const PrePayment = () => {
           </div>
         )}
       </div>
-      <div
-        className={styles.scanResultContainer}
-        style={{ marginTop: "24px", textAlign: "center" }}
-      >
-        <h3>نتیجه اسکن:</h3>
-        <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
-      </div>
-    </div>
+
+      {/* نمایش نتیجه اسکن فقط زمانی که مقدار دارد */}
+      {scanResult !== null && (
+        <div
+          className={styles.scanResultContainer}
+          style={{ marginTop: "24px", textAlign: "center" }}
+        >
+          <h3>نتیجه اسکن:</h3>
+          <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
+        </div>
+      )}
+    </>
   );
 };
 
