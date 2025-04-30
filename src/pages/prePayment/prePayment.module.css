@@ -52,7 +52,11 @@
   background-color: #007bff;
   color: white;
 }
-
+.scanButton {
+  background-color: #a62876; /* آبی مثلاً */
+  color: #fff;
+  margin-top: 10px;
+}
 .payButton:hover {
   background-color: #0056b3;
 }

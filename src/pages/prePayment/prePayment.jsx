@@ -5,6 +5,7 @@ import styles from "./prePayment.module.css";
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
   const [cardData, setCardData] = useState(null);
+  const [scanResult, setScanResult] = useState("");
   const navigate = useNavigate();
 
   window.onPaymentResult = (result) => {
@@ -35,13 +36,17 @@ const PrePayment = () => {
     try {
       if (success) {
         console.log("Barcode Recieved:", barcode);
+        setScanResult(barcode || "");
       } else {
         console.log("Something went wrong: ", barcode);
+        setScanResult(barcode);
       }
     } catch (error) {
       console.error("Failed to get scan resualt ", error);
+      setScanResult("");
     }
   };
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -50,7 +55,17 @@ const PrePayment = () => {
     window.Android.CancelOperation();
     // navigate(-1);
   };
-
+  const handleScan = async () => {
+    try {
+      if (window.Android && typeof window.Android.DoScanHID === "function") {
+        await window.Android.DoScanHID(5000);
+      } else {
+        console.warn("Android interface or DoScanHID method not available");
+      }
+    } catch (error) {
+      console.error("Error in scan process:", error);
+    }
+  };
   const handlePayment = async () => {
     let saveValue = Number(inputValue);
     console.log("پرداخت با مقدار:", saveValue);
@@ -98,6 +113,13 @@ const PrePayment = () => {
           >
             پرداخت
           </button>
+
+          <button
+            onClick={handleScan}
+            className={`${styles.button} ${styles.scanButton}`}
+          >
+            اسکن بارکد
+          </button>
         </div>
 
         {cardData && (
@@ -123,6 +145,13 @@ const PrePayment = () => {
             )}
           </div>
         )}
+      </div>
+      <div
+        className={styles.scanResultContainer}
+        style={{ marginTop: "24px", textAlign: "center" }}
+      >
+        <h3>نتیجه اسکن:</h3>
+        <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
       </div>
     </div>
   );
