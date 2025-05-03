@@ -6,7 +6,7 @@ const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
   const [cardData, setCardData] = useState(null);
   const [scanResult, setScanResult] = useState(null);
-  const [scanOccurred, setScanOccurred] = useState(false); // New state to track if scan has occurred
+  const [scanOccurred, setScanOccurred] = useState(false);
   const navigate = useNavigate();
 
   window.onPaymentResult = (result) => {
@@ -32,7 +32,7 @@ const PrePayment = () => {
           "Android interface or onRecieveAckNak method not available"
         );
       }
-    }, 2000); // simulate async work
+    }, 2000);
   };
 
   window.onScanResult = (success, barcode) => {
@@ -99,8 +99,8 @@ const PrePayment = () => {
   }, []);
 
   return (
-    <>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.contentWrapper}>
         <div className={styles.formContainer}>
           <input
             type="text"
@@ -134,6 +134,14 @@ const PrePayment = () => {
           </div>
         </div>
 
+        {/* نمایش نتیجه اسکن فقط زمانی که یک اسکن اتفاق افتاده است */}
+        {scanOccurred && (
+          <div className={styles.scanResultContainer}>
+            <h3>نتیجه اسکن:</h3>
+            <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
+          </div>
+        )}
+
         {cardData && (
           <div className={styles.responseContainer}>
             <h3>اطلاعات تراکنش:</h3>
@@ -157,16 +165,8 @@ const PrePayment = () => {
             )}
           </div>
         )}
-
-        {/* نمایش نتیجه اسکن فقط زمانی که یک اسکن اتفاق افتاده است */}
-        {scanOccurred && (
-          <div className={styles.scanResultContainer}>
-            <h3>نتیجه اسکن:</h3>
-            <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
-          </div>
-        )}
       </div>
-    </>
+    </div>
   );
 };
 
