@@ -53,14 +53,14 @@
   color: white;
 }
 
+.payButton:hover {
+  background-color: #0056b3;
+}
+
 .scanButton {
   background-color: #a62876;
   color: #fff;
   margin-top: 10px;
-}
-
-.payButton:hover {
-  background-color: #0056b3;
 }
 
 .responseContainer {
@@ -83,7 +83,7 @@
 
 .successMessage {
   color: #2e7d32;
-  background-color: #e8f5e9;
+  background: #e8f5e9;
   padding: 10px;
   border-radius: 4px;
   margin-top: 10px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./prePayment.module.css"; // مطمئن شوید که این فایل CSS را شامل می‌شود.
+import styles from "./prePayment.module.css"; // دقت کن این ایمپورت باید باشه
 
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
@@ -73,30 +73,39 @@ const PrePayment = () => {
   };
 
   return (
-    <div className="container">
-      <div className="formContainer">
+    <div className={styles.container}>
+      <div className={styles.formContainer}>
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
           placeholder="مقدار را وارد کنید"
-          className="input"
+          className={styles.input}
         />
-        <div className="buttonContainer">
-          <button onClick={handleBack} className="button backButton">
+        <div className={styles.buttonContainer}>
+          <button
+            onClick={handleBack}
+            className={`${styles.button} ${styles.backButton}`}
+          >
             برگشت
           </button>
-          <button onClick={handlePayment} className="button payButton">
+          <button
+            onClick={handlePayment}
+            className={`${styles.button} ${styles.payButton}`}
+          >
             پرداخت
           </button>
-          <button onClick={handleScan} className="button scanButton">
+          <button
+            onClick={handleScan}
+            className={`${styles.button} ${styles.scanButton}`}
+          >
             اسکن بارکد
           </button>
         </div>
 
         {/* نمایش نتیجه اسکن */}
         {scanOccurred && (
-          <div className="scanResultContainer">
+          <div className={styles.scanResultContainer}>
             <h3>نتیجه اسکن:</h3>
             <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
           </div>
@@ -104,7 +113,7 @@ const PrePayment = () => {
 
         {/* نمایش اطلاعات تراکنش */}
         {cardData && (
-          <div className="responseContainer">
+          <div className={styles.responseContainer}>
             <h3>اطلاعات تراکنش:</h3>
             <p>شماره کارت: {cardData.CardNumber}</p>
             <p>مبلغ: {cardData.Amount}</p>
@@ -113,16 +122,16 @@ const PrePayment = () => {
             <p>وضعیت: {cardData.ResponseFa}</p>
             {cardData.ResponseCode === 0 || cardData.ResponseCode === 100 ? (
               <>
-                <div className="successMessage">تراکنش موفق</div>
+                <div className={styles.successMessage}>تراکنش موفق</div>
                 <button
                   onClick={handleNavigateToPrint}
-                  className="button printButton"
+                  className={`${styles.button} ${styles.printButton}`}
                 >
                   چاپ رسید
                 </button>
               </>
             ) : (
-              <div className="errorMessage">تراکنش ناموفق</div>
+              <div className={styles.errorMessage}>تراکنش ناموفق</div>
             )}
           </div>
         )}
