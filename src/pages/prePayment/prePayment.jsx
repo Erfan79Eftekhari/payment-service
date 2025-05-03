@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./prePayment.module.css";
+import "./prePayment.css"; // مطمئن شوید که این فایل CSS را شامل می‌شود.
 
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
   const [cardData, setCardData] = useState(null);
-  const [scanResult, setScanResult] = useState(null);
+  const [scanResult, setScanResult] = useState("");
   const [scanOccurred, setScanOccurred] = useState(false);
   const navigate = useNavigate();
 
@@ -19,37 +19,20 @@ const PrePayment = () => {
     }
   };
 
-  window.OnRequestAck = () => {
-    setTimeout(() => {
-      if (
-        window.Android &&
-        typeof window.Android.onRecieveAckNak === "function"
-      ) {
-        console.log("i send ACK");
-        window.Android.onRecieveAckNak(true);
-      } else {
-        console.warn(
-          "Android interface or onRecieveAckNak method not available"
-        );
-      }
-    }, 2000);
-  };
-
   window.onScanResult = (success, barcode) => {
     try {
       if (success) {
-        console.log("Barcode Recieved:", barcode);
-        setScanResult(barcode || ""); // اگر barcode خالی بود، مقدار "" بگذار
-        setScanOccurred(true); // Flag that scan has occurred
+        console.log("Barcode Received:", barcode);
+        setScanResult(barcode || "");
       } else {
         console.log("Something went wrong: ", barcode);
-        setScanResult(""); // اگر موفق نبود، مقدار را خالی کن
-        setScanOccurred(true); // Still mark that scan was attempted
+        setScanResult("");
       }
+      setScanOccurred(true);
     } catch (error) {
-      console.error("Failed to get scan resualt ", error);
-      setScanResult(""); // در صورت ارور هم مقدار را خالی کن
-      setScanOccurred(true); // Still mark that scan was attempted
+      console.error("Failed to get scan result", error);
+      setScanResult("");
+      setScanOccurred(true);
     }
   };
 
@@ -57,14 +40,19 @@ const PrePayment = () => {
     setInputValue(e.target.value);
   };
 
-  const handleBack = async () => {
-    window.Android.CancelOperation();
-    // navigate(-1);
+  const handlePayment = async () => {
+    const amount = Number(inputValue);
+    console.log("پرداخت با مقدار:", amount);
+    try {
+      await window.Android.DoPayment(amount);
+    } catch (error) {
+      console.error("Error in payment process:", error);
+    }
   };
 
   const handleScan = async () => {
-    setScanResult(null); // پاک کردن مقدار قبلی قبل از اسکن جدید
-    setScanOccurred(false); // Reset scan occurred flag
+    setScanResult("");
+    setScanOccurred(false);
     try {
       if (window.Android && typeof window.Android.DoScanHID === "function") {
         await window.Android.DoScanHID(5000);
@@ -76,74 +64,47 @@ const PrePayment = () => {
     }
   };
 
-  const handlePayment = async () => {
-    let saveValue = Number(inputValue);
-    console.log("پرداخت با مقدار:", saveValue);
-
-    try {
-      await window.Android.DoPayment(saveValue);
-    } catch (error) {
-      console.error("Error in payment process:", error);
-    }
+  const handleBack = async () => {
+    window.Android.CancelOperation();
   };
 
-  // اضافه کردن تابع برای هدایت به صفحه پرینت
   const handleNavigateToPrint = () => {
-    navigate("/print", { state: { cardData } }); // انتقال اطلاعات تراکنش به صفحه پرینت
+    navigate("/print", { state: { cardData } });
   };
-
-  useEffect(() => {
-    return () => {
-      delete window.onPaymentResult;
-    };
-  }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.contentWrapper}>
-        <div className={styles.formContainer}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="مقدار را وارد کنید"
-            className={styles.input}
-          />
-
-          <div className={styles.buttonContainer}>
-            <button
-              onClick={handleBack}
-              className={`${styles.button} ${styles.backButton}`}
-            >
-              برگشت
-            </button>
-
-            <button
-              onClick={handlePayment}
-              className={`${styles.button} ${styles.payButton}`}
-            >
-              پرداخت
-            </button>
-
-            <button
-              onClick={handleScan}
-              className={`${styles.button} ${styles.scanButton}`}
-            >
-              اسکن بارکد
-            </button>
-          </div>
+    <div className="container">
+      <div className="formContainer">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="مقدار را وارد کنید"
+          className="input"
+        />
+        <div className="buttonContainer">
+          <button onClick={handleBack} className="button backButton">
+            برگشت
+          </button>
+          <button onClick={handlePayment} className="button payButton">
+            پرداخت
+          </button>
+          <button onClick={handleScan} className="button scanButton">
+            اسکن بارکد
+          </button>
         </div>
 
-        {/* نمایش نتیجه اسکن فقط زمانی که یک اسکن اتفاق افتاده است */}
+        {/* نمایش نتیجه اسکن */}
         {scanOccurred && (
-          <div className={styles.scanResultContainer}>
+          <div className="scanResultContainer">
             <h3>نتیجه اسکن:</h3>
             <p>{scanResult !== "" ? scanResult : "چیزی اسکن نشد"}</p>
           </div>
         )}
 
+        {/* نمایش اطلاعات تراکنش */}
         {cardData && (
-          <div className={styles.responseContainer}>
+          <div className="responseContainer">
             <h3>اطلاعات تراکنش:</h3>
             <p>شماره کارت: {cardData.CardNumber}</p>
             <p>مبلغ: {cardData.Amount}</p>
@@ -152,16 +113,16 @@ const PrePayment = () => {
             <p>وضعیت: {cardData.ResponseFa}</p>
             {cardData.ResponseCode === 0 || cardData.ResponseCode === 100 ? (
               <>
-                <div className={styles.successMessage}>تراکنش موفق</div>
+                <div className="successMessage">تراکنش موفق</div>
                 <button
                   onClick={handleNavigateToPrint}
-                  className={`${styles.button} ${styles.printButton}`}
+                  className="button printButton"
                 >
                   چاپ رسید
                 </button>
               </>
             ) : (
-              <div className={styles.errorMessage}>تراکنش ناموفق</div>
+              <div className="errorMessage">تراکنش ناموفق</div>
             )}
           </div>
         )}
