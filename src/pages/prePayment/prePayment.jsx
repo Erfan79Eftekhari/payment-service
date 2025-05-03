@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./prePayment.css"; // مطمئن شوید که این فایل CSS را شامل می‌شود.
+import "./prePayment.module.css"; // مطمئن شوید که این فایل CSS را شامل می‌شود.
 
 const PrePayment = () => {
   const [inputValue, setInputValue] = useState("");
